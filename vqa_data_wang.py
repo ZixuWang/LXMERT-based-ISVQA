@@ -20,17 +20,18 @@ FAST_IMG_NUM = 5000
 
 # The path to data and image features.
 
-annotation_file = '/Users/wangzixu/TUM/Forschung/ISVQA/ISVQA/input/ISVQA/imdb_nuscenes_trainval.json'
+annotation_file = '/root/Documents/ISVQA/imdb_nuscenes_trainval_score.json'
 
-VQA_DATA_ROOT = 'data/vqa/'
-MSCOCO_IMGFEAT_ROOT = 'data/mscoco_imgfeat/'
-SPLIT2NAME = {
-    'train': 'train2014',
-    'valid': 'val2014',
-    'minival': 'val2014',
-    'nominival': 'val2014',
-    'test': 'test2015',
-}
+# VQA_DATA_ROOT = 'data/vqa/'
+IMGFEAT_ROOT = '/root/Documents/ISVQA/feature_output/feature_output/'
+
+# SPLIT2NAME = {
+#     'train': 'train2014',
+#     'valid': 'val2014',
+#     'minival': 'val2014',
+#     'nominival': 'val2014',
+#     'test': 'test2015',
+# }
 
 
 class VQADataset:
@@ -44,7 +45,7 @@ class VQADataset:
 
         # Answers
         self.ans2label = {}
-        with open('/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/data/vqa/answers_nuscenes_more_than_1.txt') as f:
+        with open('/root/Documents/ISVQA-Dataset/nuscenes/answers_nuscenes_more_than_1.txt') as f:
             lines = f.readlines()
             # print(lines)
             for idx, line in enumerate(lines):
@@ -92,10 +93,12 @@ class VQATorchDataset(Dataset):
 
         #1. 遍历npy文件
         feat_filenames = []
+        # annotation_data = json.load(open(annotation_file))['data']
 
-        for datum in data:
+        for datum in dataset.data:
             feat_filenames.append(datum['feature_paths'])
-        # print(feat_filenames)
+        
+        print(feat_filenames)
         feat_file_name = []
         feat_paths = []
         feat_info_paths = []
@@ -103,20 +106,22 @@ class VQATorchDataset(Dataset):
         #paths of feature
         for feat_filename in feat_filenames:
             for npy_name in feat_filename:
-                feat_paths.append(MSCOCO_IMGFEAT_ROOT + npy_name.split("/", 1)[1])
+                feat_paths.append(IMGFEAT_ROOT + npy_name.split("/", 1)[1])
         # paths of feature info
         for i in feat_paths:
             feat_info_paths.append((i.split(".", 1)[0]) + "_info.npy")
 
-        # feat_npy = []
-        # for i in range(0, len(feat_file_name), 6):
-        #     feat_npy.append(feat_file_name[i:i + 6]) #feat_npy [[],[],[],[]...]
+        print(feat_info_paths)
+
+        feat_npy = []
+        for i in range(0, len(feat_file_name), 6):
+            feat_npy.append(feat_file_name[i:i + 6]) #feat_npy [[],[],[],[]...]
 
         # 2. 读取npy文件->列表
         img_data = []
         info_data = []
 
-        # 读取数据：for feature
+        # 读取数据：for feature #according to json file
         for feat_path in feat_paths:
             img_data.append(np.load(feat_path, allow_pickle=True).item())
 
@@ -145,8 +150,8 @@ class VQATorchDataset(Dataset):
         for datum in self.raw_dataset.data: # 遍历annotation中的数据
             if datum['image_id'] in self.imgid2img: #如果anno中的image_id在.npy中，则将anno中的数据存入self.data中
                 self.data.append(datum) #重新整理dataset到self.data
-        print("Use %d data in torch dataset" % (len(self.data)))
-        # print()
+        # print("Use %d data in torch dataset" % (len(self.data)))
+        print(self.data)
 
     def __len__(self):
         return len(self.data)
@@ -191,7 +196,7 @@ class VQATorchDataset(Dataset):
         else:
             return ques_id, feats, boxes, ques, torch.from_numpy(boxes)
 
-# data_obj36 = VQATorchDataset(dataset = data1)
+data_obj36 = VQATorchDataset(dataset = data1)
 
 class VQAEvaluator:
     def __init__(self, dataset: VQADataset):
