@@ -57,25 +57,18 @@ class VQADataset:
         }
 
         # # Answers
-        # self.ans2label = {}
+        self.ans2label = {}
         # # with open('/root/Documents/ISVQA-Dataset/nuscenes/answers_nuscenes_more_than_1.txt') as f:
-        # with open('/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/data/vqa/answers_nuscenes_more_than_1.txt') as f:
-        #     lines = f.readlines()
-        #     # print(lines)
-        #     for idx, line in enumerate(lines):
-        #         # self.ans2label[line] = idx  # 给answer贴上序号
-        #         self.ans2label[idx] = line
+        with open('/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/data/vqa/answers_nuscenes_more_than_1.txt') as f:
+            # lines = f.readlines()
+            # print(lines)
+            lines = f.read().splitlines()
+
+            for idx, line in enumerate(lines):
+                # self.ans2label[line] = idx  # 给answer贴上序号
+                self.ans2label[line] = idx
             # print(self.ans2label)
             # print(len(self.ans2label)) # 650
-        self.ans2label = {}
-        self.label2ans = {}
-        with open('/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/data/vqa/answers_nuscenes_more_than_1.txt') as file:
-            lines = file.readlines()
-            for idx, line in enumerate(lines):  # 给每个回答加上索引
-                self.ans2label[idx] = line
-                # print(self.ans2label[line])# 0 ~ 49
-                self.label2ans[idx] = line
-        # print(self.ans2label)
 
     @property  # 通过 @property 装饰器，可以直接通过方法名来访问方法，不需要在方法名后添加一对“（）”小括号。
     def num_answers(self):
@@ -232,6 +225,7 @@ class VQATorchDataset(Dataset):
         ques_id = datum['question_id']
         ques = datum['question_str']
 
+
         # Get image info
         img_feat = []
         info_feat = []
@@ -239,7 +233,7 @@ class VQATorchDataset(Dataset):
         for i in self.img_data: # imgdata[]中有所有img的信息{}
             if i['image_id'] == img_id: # 找到选定的img set的信息{}
                 img_feat.append(i['feature']) # 将信息加入img_feat
-        print(img_feat)
+        # print(img_feat)
 
         for i in self.info_data: # imgdata[]中有所有img的信息{}
             if i['image_id'] == img_id: # 特定img set的信息{}
@@ -284,21 +278,21 @@ class VQATorchDataset(Dataset):
         # Provide label (target)
         if 'label' in datum:  # 'label': {'five': 1.0, '<unk>': 0.5, 'four': 0.5}
             label = datum['label']
-            print(label)
+            # print(label)  # {'yes': 1.0}
             target = torch.zeros(self.raw_dataset.num_answers)
+            # print(target.size())  # 650
+
             for ans, score in label.items():  # .items() -> ans:key score: value
                 target[self.raw_dataset.ans2label[ans]] = score
-            # print(target)
-            return ques_id, feats, ques, target, torch.from_numpy(boxes)
+                # print(self.raw_dataset.ans2label[score])
+            return feats, ques, target, torch.from_numpy(boxes), ques_id
         else:
-            return ques_id, feats, ques, torch.from_numpy(boxes)
+            return feats, ques, torch.from_numpy(boxes), ques_id
 
 
 data1 = VQADataset(annotation_file)
 data_obj36 = VQATorchDataset(dataset=data1)
-
-
-data_obj36.__getitem__(10)
+data_obj36.__getitem__(1)
 
 
 class VQAEvaluator:
