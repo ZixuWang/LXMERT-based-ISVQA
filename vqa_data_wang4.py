@@ -24,7 +24,7 @@ FAST_IMG_NUM = 5000
 # The path to data and image features.
 
 # annotation_file = '/root/Documents/ISVQA/imdb_nuscenes_trainval_score.json'
-annotation_file = '/Users/wangzixu/TUM/Forschung/data/ISVQA/imdb_nuscenes_trainval_score.json'
+annotation_file = '/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/script/trainval_with_score_quesid.json'
 # test_annotation_file = ''
 
 
@@ -47,27 +47,28 @@ class VQADataset:
 
     def __init__(self, annotation_file):  # 输入.json
 
-        self.data = json.load(open(annotation_file))['data']
+        self.data = json.load(open(annotation_file))
         # print(self.data)
 
         # Convert list to dict (for evaluation)
         self.id2datum = {
-            datum['question_id']: datum  # e.g 393203003:{ } 将question_id作为索引？ -> .json文件
+            datum['quesid']: datum  # e.g 393203003:{ } 将question_id作为索引？ -> .json文件
             for datum in self.data  # data中[]中的每一个{}是每一个datum
         }
 
         # # Answers
         self.ans2label = {}
+        self.label2ans = []
         # # with open('/root/Documents/ISVQA-Dataset/nuscenes/answers_nuscenes_more_than_1.txt') as f:
         with open('/Users/wangzixu/TUM/Forschung/ISVQA/lxmert/data/vqa/answers_nuscenes_more_than_1.txt') as f:
-            # lines = f.readlines()
-            # print(lines)
             lines = f.read().splitlines()
 
             for idx, line in enumerate(lines):
                 # self.ans2label[line] = idx  # 给answer贴上序号
                 self.ans2label[line] = idx
+                self.label2ans.append(line)
             # print(self.ans2label)
+            # print(self.label2ans)
             # print(len(self.ans2label)) # 650
 
     @property  # 通过 @property 装饰器，可以直接通过方法名来访问方法，不需要在方法名后添加一对“（）”小括号。
@@ -132,6 +133,7 @@ class VQATorchDataset(Dataset):
                 feat_info_paths.append((i.split(".", 1)[0]) + "_info.npy")
 
         # print(feat_paths)
+        # print(len(feat_paths))
         # print(feat_info_paths)
 
         # 去除重复的path
@@ -145,6 +147,8 @@ class VQATorchDataset(Dataset):
             if i not in feat_info_path_new:
                 feat_info_path_new.append(i)
 
+        # print(feat_path_new)
+        # print(len(feat_path_new))
         # print(feat_info_path_new)
         # print(len(feat_path_new)) #624
 
@@ -222,7 +226,7 @@ class VQATorchDataset(Dataset):
 
         datum = self.data[item]
         img_id = datum['image_id']
-        ques_id = datum['question_id']
+        ques_id = datum['quesid']
         ques = datum['question_str']
 
 
@@ -233,11 +237,14 @@ class VQATorchDataset(Dataset):
         for i in self.img_data: # imgdata[]中有所有img的信息{}
             if i['image_id'] == img_id: # 找到选定的img set的信息{}
                 img_feat.append(i['feature']) # 将信息加入img_feat
-        # print(img_feat)
+                break
+        img_feat = img_feat[0]
+        # print(img_feat)  # [tensor1,tensor2,tensor3,tensor4,tensor5,tensor6]
+
 
         for i in self.info_data: # imgdata[]中有所有img的信息{}
             if i['image_id'] == img_id: # 特定img set的信息{}
-                info_feat.append(i['bbox']) # 将信息加入info_feat
+                info_feat.append(i['bbox']) # 将信息加入info_feat  #[array1,array2,array3,array4,array5,array6]
         # print(info_feat)
 
         img_info = self.imgid2img[img_id]  # 将img_id作为img_info # img_id为XXXX的img-set的信息 #问题：只有一个set中一个img的信息
@@ -245,7 +252,8 @@ class VQATorchDataset(Dataset):
 
 
         # obj_num = 0
-        # print(len(info_feat))  # 6
+        # print(len(img_feat))  # 6
+        # print(len(info_feat)  # 6
         # 将一个set内的六张图的feat信息拼接
         for i in range(len(img_feat)):
             # obj_num += self.infoid2info[i]['num_boxes']  # total num_boxes of 6 images
@@ -255,6 +263,7 @@ class VQATorchDataset(Dataset):
             else:
                 feats = torch.cat((feats, img_feat[i]), 0)
         # print(feats.size())  # torch.Size([600, 2048])
+        # print(feats)
             # assert obj_num == len(boxes) == len(feats)
 
         for i in range(len(info_feat)):
@@ -272,8 +281,8 @@ class VQATorchDataset(Dataset):
         boxes = boxes.copy()
         boxes[:, (0, 2)] /= img_w
         boxes[:, (1, 3)] /= img_h
-        #np.testing.assert_array_less(boxes, 1+1e-5)
-        #np.testing.assert_array_less(-boxes, 0+1e-5)
+        # np.testing.assert_array_less(boxes, 1+1e-5)
+        # np.testing.assert_array_less(-boxes, 0+1e-5)
 
         # Provide label (target)
         if 'label' in datum:  # 'label': {'five': 1.0, '<unk>': 0.5, 'four': 0.5}
@@ -284,15 +293,15 @@ class VQATorchDataset(Dataset):
 
             for ans, score in label.items():  # .items() -> ans:key score: value
                 target[self.raw_dataset.ans2label[ans]] = score
-                # print(self.raw_dataset.ans2label[score])
+
             return feats, ques, target, torch.from_numpy(boxes), ques_id
         else:
             return feats, ques, torch.from_numpy(boxes), ques_id
 
 
-data1 = VQADataset(annotation_file)
-data_obj36 = VQATorchDataset(dataset=data1)
-data_obj36.__getitem__(1)
+# data1 = VQADataset(annotation_file)
+# data_obj36 = VQATorchDataset(dataset=data1)
+# data_obj36.__getitem__(1)
 
 
 class VQAEvaluator:
@@ -302,7 +311,7 @@ class VQAEvaluator:
     def evaluate(self, quesid2ans: dict):  # 我们给出ans和对应的quesid -> {"question_id": int, "answer": str }
         score = 0.
         for quesid, ans in quesid2ans.items():
-            datum = self.dataset.id2datum[quesid]  # 393203003:{ 'label': ...., question_id: ...., answers:....,}
+            datum = self.dataset.id2datum[quesid]  # 123:{ 'label': ...., question_id: ...., answers:....,}, quesid对应的datum
             label = datum['label']
             if ans in label:  # 回答正确
                 score += label[ans]
@@ -323,9 +332,9 @@ class VQAEvaluator:
 
         with open(path, 'w') as f:
             result = []
-            for ques_id, ans in quesid2ans.items():
+            for quesid, ans in quesid2ans.items():
                 result.append({
-                    'question_id': ques_id,
+                    'question_id': quesid,
                     'answer': ans
                 })
             json.dump(result, f, indent=4, sort_keys=True)
