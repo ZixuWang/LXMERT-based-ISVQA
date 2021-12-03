@@ -48,7 +48,7 @@ blabla
 
 
 # Preparation 
-- mask rcnn benchmark [instruction](www.kjhdfjk) 
+- mask rcnn benchmark [instruction](https://gitlab.com/vedanuj/vqa-maskrcnn-benchmark) 
 - LXMERT repo
 pip-requirement.yaml
 - maskrcnn_benchmark
