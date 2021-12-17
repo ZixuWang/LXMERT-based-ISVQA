@@ -63,8 +63,9 @@ python feature_extaction.py
 
 # ID and score generation
 You can use preprocessed annotation file(*trainval_with_score_quesid.json* for training and *test_with_score_quesid.json* for testing) and *ans2label.txt* under *input/ProcesseFile*
+
 OR
-You can do it on your own from scrach by script
+You can do it on your own from scratch
 1. Download the original annotation files and answer file from [ISVQA](https://github.com/ankanbansal/ISVQA-Dataset/tree/master/nuscenes)
 2. Generate new annotation file and answer file via *data_preprocessing.py*. Before running *data_preprocessing.py*, don't forget to change file path to yours.
 
