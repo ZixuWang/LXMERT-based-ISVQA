@@ -11,7 +11,7 @@ import torch
 from torch import tensor
 from torch.utils.data import Dataset
 
-from param2 import args
+from others.param2 import args
 
 # CUDA_VISIBLE_DEVICES= 0
 # from utils import load_obj_tsv

@@ -9,7 +9,7 @@ import torch.nn as nn
 from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 
-from param import args
+from src.param import args
 from .qa_answer_table import load_lxmert_qa
 from .vqa_model import VQAModel
 from .vqa_data import VQADataset, VQATorchDataset, VQAEvaluator

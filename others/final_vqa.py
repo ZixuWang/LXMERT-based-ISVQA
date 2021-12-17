@@ -11,10 +11,10 @@ import torch.nn as nn
 from torch.utils.data.dataloader import DataLoader
 from tqdm import tqdm
 
-from param2 import args
+from others.param2 import args
 from pretrain.qa_answer_table import load_lxmert_qa
 from tasks.vqa_model import VQAModel
-from vqa_data_wang5 import VQADataset, VQATorchDataset, VQAEvaluator
+from others.vqa_data_wang5 import VQADataset, VQATorchDataset, VQAEvaluator
 
 
 DataTuple = collections.namedtuple("DataTuple", 'dataset loader evaluator')

@@ -10,7 +10,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
-from param import args
+from src.param import args
 from utils import load_obj_tsv
 
 # Load part of the dataset for fast checking.

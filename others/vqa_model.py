@@ -3,7 +3,7 @@
 
 import torch.nn as nn
 
-from param import args
+from src.param import args
 from lxrt.entry import LXRTEncoder
 from lxrt.modeling import BertLayerNorm, GeLU
 
