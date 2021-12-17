@@ -6,8 +6,8 @@ introduction....
 blabla
 ```sh
 |-- extracted_features
-|   -- train
-|   -- test
+|   |-- train
+|   |-- test
 |-- mini
 |   |-- maps
 |   |   |-- 36092f0b03a857c6a3403e25b4b7aab3.png
