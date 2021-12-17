@@ -3,9 +3,14 @@
 
 import torch.nn as nn
 
+import sys,os
+path = os.path.dirname(os.path.dirname(__file__))
+# print(path)
+sys.path.append(path)
+
 from src.param import args
-from lxrt.entry import LXRTEncoder
-from lxrt.modeling import BertLayerNorm, GeLU
+from src.lxrt.entry import LXRTEncoder
+from src.lxrt.modeling import BertLayerNorm, GeLU
 
 # Max length including <bos> and <eos>
 MAX_VQA_LENGTH = 20

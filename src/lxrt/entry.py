@@ -20,8 +20,15 @@ import os
 import torch
 import torch.nn as nn
 
+import sys
+path = os.path.dirname(os.path.dirname(__file__))
+print(path)
+sys.path.append(path)
+
+
 from lxrt.tokenization import BertTokenizer
 from lxrt.modeling import LXRTFeatureExtraction as VisualBertForLXRFeature, VISUAL_CONFIG
+
 
 
 class InputFeatures(object):

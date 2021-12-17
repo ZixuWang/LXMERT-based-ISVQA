@@ -34,7 +34,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
 
     # Data Splits
-    parser.add_argument("--train", default= 'input/ProcessedFile/trainval_with_score_quesid.json')
+    parser.add_argument("--train", default= 'input/ProcessedFile/trainval_with_score_quesid.json')  #TODO
     parser.add_argument("--valid", default= 'input/ProcessedFile/test_with_score_quesid.json')
     parser.add_argument("--test", default= None)
 
@@ -47,7 +47,7 @@ def parse_args():
     parser.add_argument('--seed', type=int, default=9595, help='random seed')
 
     # Debugging
-    parser.add_argument('--output', type=str, default='snap/test')
+    parser.add_argument('--output', type=str, default='output')
     parser.add_argument("--fast", action='store_const', default=False, const=True)
     parser.add_argument("--tiny", action='store_const', default=False, const=True)
     parser.add_argument("--tqdm", action='store_const', default=False, const=True)
@@ -57,7 +57,7 @@ def parse_args():
                         help='Load the model (usually the fine-tuned model).')
     parser.add_argument('--loadLXMERT', dest='load_lxmert', type=str, default=None,
                         help='Load the pre-trained LXMERT model.')
-    parser.add_argument('--loadLXMERTQA', dest='load_lxmert_qa', type=str, default= '/root/Documents/lxmert/snap/pretrained/model',
+    parser.add_argument('--loadLXMERTQA', dest='load_lxmert_qa', type=str, default= './src/pretrain/model',
                         help='Load the pre-trained LXMERT model with QA answer head.')
     parser.add_argument("--fromScratch", dest='from_scratch', action='store_const', default=False, const=True,
                         help='If none of the --load, --loadLXMERT, --loadLXMERTQA is set, '

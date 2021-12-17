@@ -29,11 +29,13 @@ blabla
 # File structure
 ```sh
 -- input
-  -- image
-    -- feature
-  -- pretrain-weights
+  -- ISVQA
+    -- NuScenes
+      -- extracted_features
+  # -- pretrain-weights
   -- json
 -- output
+-- others
 -- lxrt
 -- src
 |   -- lxrt
@@ -44,7 +46,6 @@ blabla
 -- feature_extaction.py
 -- json_generation.py
 -- ISVQA_main.py
--- requirement.yaml
 ```
 
 
@@ -53,15 +54,13 @@ blabla
 - LXMERT repository [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
 - download pretrained lxmert model via
 ```sh
-wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P snap/pretrained
+wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 ```
 
 - maskrcnn_benchmark
 - mmf (orinially is ..., mmf is too large ...)
 - cv
 - python version, pytorch version
-
-pip install yaml
 
 # Feature extraction
 run 
@@ -72,14 +71,9 @@ python feature_extaction.py
 # ID and score generation
 
 
-# Training
+# Training and Test
 ```sh
 python ISVQA_main.py
-```
-
-# Test
-```sh
-python vqa.py
 ```
 
 # Training and result

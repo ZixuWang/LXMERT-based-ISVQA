@@ -24,15 +24,15 @@ from param import args
 
 # annotation_file = '/root/Documents/ISVQA/trainval_score_quesid.json'
 
-train = '/root/Documents/ISVQA/trainval_score_quesid.json'  #TODO
+# train = 'input/ProcessedFile/trainval_with_score_quesid.json'  #TODO
 # test = '/root/Documents/ISVQA/test_score_quesid.json'
 
 
 # IMGFEAT_ROOT = '/root/dataset/NuScenes/feature_output_train_test/'
 
 SPLIT2NAME = {
-    '/root/Documents/ISVQA/trainval_score_quesid.json': '/root/dataset/NuScenes/feature_output_train_test/',
-    '/root/Documents/ISVQA/test_score_quesid.json': '/root/dataset/NuScenes/feature_output_test_test_test/',
+    'input/ProcessedFile/trainval_with_score_quesid.json': 'input/ISVQA/NuScenes/extracted_features/train/',
+    'input/ProcessedFile/test_with_score_quesid.json': 'input/ISVQA/NuScenes/extracted_features/test/',
 }  # TODO
 
 class VQADataset:
@@ -52,7 +52,7 @@ class VQADataset:
         # # Answers
         self.ans2label = {}
         self.label2ans = []
-        with open('/root/Documents/lxmert/ans2label.txt') as f:  #TODO
+        with open('input/ProcessedFile/ans2label.txt') as f:  #TODO
         # with open('/root/Documents/ISVQA-Dataset/nuscenes/answers_nuscenes_more_than_1.txt') as f:
             lines = f.read().splitlines()
 
@@ -97,6 +97,7 @@ class VQATorchDataset(Dataset):
         # paths of feature
         for feat_filename in feat_filenames:
             for npy_name in feat_filename:
+                # print(('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1]))
                 if os.path.exists('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1]):
                     feat_paths.append('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1])  #203838
         
@@ -108,6 +109,8 @@ class VQATorchDataset(Dataset):
         for i in feat_paths:
             if i not in feat_path_new:
                 feat_path_new.append(i)  #58584
+        
+        # print(feat_path_new)
 
 
         # feat_info_path_new = []
@@ -123,9 +126,9 @@ class VQATorchDataset(Dataset):
         
         for feat_path in feat_path_new:
             self.img_data.append(np.load(feat_path, allow_pickle=True).item())
-            # if len(self.img_data) == 3000:
-            #     print('loading %s feature finished' %len(self.img_data))
-            #     break
+            if len(self.img_data) == 30:
+                print('loading %s feature finished' %len(self.img_data))
+                break
 
         # Convert img list to dict
         self.imgid2img = {}
@@ -221,12 +224,6 @@ class VQATorchDataset(Dataset):
             return ques_id, feats, torch.from_numpy(boxes), ques, target
         else:
             return ques_id, feats, torch.from_numpy(boxes), ques
-
-
-
-data1 = VQADataset(train)
-data_obj36 = VQATorchDataset(dataset=data1)
-data_obj36.__getitem__(12)
 
 
 class VQAEvaluator:
