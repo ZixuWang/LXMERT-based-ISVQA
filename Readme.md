@@ -5,8 +5,9 @@ introduction....
 # Dataset intro
 blabla
 ```sh
--- feature_output_test_test_test 
-|-- feature_output_train_test
+|-- extracted_features
+|   -- train
+|   -- test
 |-- mini
 |   |-- maps
 |   |   |-- 36092f0b03a857c6a3403e25b4b7aab3.png
@@ -42,13 +43,13 @@ blabla
 -- ReadMe.md
 -- feature_extaction.py
 -- json_generation.py
--- vqa_vqa(isvqa_main.py)
+-- ISVQA_main.py
 -- requirement.yaml
 ```
 
 
 # Preparation 
-- mask rcnn benchmark [instruction](https://gitlab.com/vedanuj/vqa-maskrcnn-benchmark) 
+- mask rcnn benchmark [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) 
 - LXMERT repo
 pip-requirement.yaml
 - maskrcnn_benchmark
@@ -64,7 +65,7 @@ pip install yaml
 
 # Training
 ```sh
-python vqa_vqa.py
+python ISVQA_main.py
 ```
 
 # Test
