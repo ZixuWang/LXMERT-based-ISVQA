@@ -5,7 +5,6 @@ import torch.nn as nn
 
 import sys,os
 path = os.path.dirname(os.path.dirname(__file__))
-# print(path)
 sys.path.append(path)
 
 from src.param import args

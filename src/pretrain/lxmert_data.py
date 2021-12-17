@@ -10,7 +10,6 @@ from torch.utils.data import Dataset
 
 from param import args
 from pretrain.qa_answer_table import AnswerTable
-from utils import load_obj_tsv
 
 TINY_IMG_NUM = 500
 FAST_IMG_NUM = 5000

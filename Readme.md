@@ -40,7 +40,7 @@ blabla
 -- src
 |   -- lxrt
 |   -- maskrcnn benchmark
-|   -- vqa_data_.py
+|   -- vqa_data.py
 |   -- utils
 -- ReadMe.md
 -- feature_extaction.py
@@ -57,11 +57,6 @@ blabla
 wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 ```
 
-- maskrcnn_benchmark
-- mmf (orinially is ..., mmf is too large ...)
-- cv
-- python version, pytorch version
-
 # Feature extraction
 run 
 ```sh
@@ -69,12 +64,14 @@ python feature_extaction.py
 ```
 
 # ID and score generation
-
+```sh
+python data_preprocessing.py
+```
 
 # Training and Test
 ```sh
 python ISVQA_main.py
 ```
 
-# Training and result
+# Result
 

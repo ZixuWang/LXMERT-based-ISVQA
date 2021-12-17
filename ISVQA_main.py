@@ -14,7 +14,7 @@ from tqdm import tqdm
 from src.param import args
 from src.pretrain.qa_answer_table import load_lxmert_qa
 from src.vqa_model import VQAModel
-from src.vqa_data_wang5 import VQADataset, VQATorchDataset, VQAEvaluator
+from src.vqa_data import VQADataset, VQATorchDataset, VQAEvaluator
 
 
 DataTuple = collections.namedtuple("DataTuple", 'dataset loader evaluator')
