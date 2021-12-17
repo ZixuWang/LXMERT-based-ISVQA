@@ -50,9 +50,9 @@ blabla
 
 
 # Preparation 
-- mask rcnn benchmark [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) 
-- LXMERT repository [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
-- download pretrained lxmert model via
+- 1. Install mask rcnn benchmark via [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) to extract image features
+- 2. Install the environment to run LXMERT model [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
+- 2. download pretrained lxmert model via
 ```sh
 wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 ```
