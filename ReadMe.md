@@ -34,7 +34,7 @@ This repository is to implement lxmert model based VQA in autonomous driving dat
   # -- pretrain-weights
   -- json
 -- output
--- others
+-- others(temporary)
 -- src
 |   -- lxrt
 |   -- maskrcnn benchmark
@@ -56,9 +56,8 @@ wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 ```
 
 # Feature extraction
-run 
 ```sh
-python feature_extaction.py
+python feature_extraction.py
 ```
 
 # ID and score generation
