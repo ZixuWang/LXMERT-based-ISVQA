@@ -60,18 +60,22 @@ wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 python feature_extraction.py
 ```
 
-# ID and score generation
-You can use preprocessed annotation file(*trainval_with_score_quesid.json* for training and *test_with_score_quesid.json* for testing) and *ans2label.txt* under *input/ProcesseFile*
+# Question ID and score generation
+For original question id is not unique for each question, we need to generate new question id to identify each question.
 
-OR
-You can do it on your own from scratch
+You can either directly use preprocessed annotation file(*trainval_with_score_quesid.json* for training and *test_with_score_quesid.json* for testing) and *ans2label.txt* under *input/ProcesseFile* or do it on your own following below steps.
 1. Download the original annotation files and answer file from [ISVQA](https://github.com/ankanbansal/ISVQA-Dataset/tree/master/nuscenes)
 2. Generate new annotation file and answer file via *data_preprocessing.py*. Before running *data_preprocessing.py*, don't forget to change file path to yours.
 
 # Training and Test
+When features and new .json file and .txt file are ready, you can run *ISVQA_main.py* to train and test the whole model.
 ```sh
 python ISVQA_main.py
 ```
 
 # Result
+After 100 Epochs, we have the accuracy on training set as xxx and on test set as xxx.
+*figure1*
+*figure2*
+*figure3*
 
