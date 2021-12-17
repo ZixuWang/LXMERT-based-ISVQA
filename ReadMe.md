@@ -36,7 +36,6 @@ blabla
   -- json
 -- output
 -- others
--- lxrt
 -- src
 |   -- lxrt
 |   -- maskrcnn benchmark
@@ -44,15 +43,15 @@ blabla
 |   -- utils
 -- ReadMe.md
 -- feature_extaction.py
--- json_generation.py
+-- data_preprocessing.py
 -- ISVQA_main.py
 ```
 
 
 # Preparation 
-- 1. Install mask rcnn benchmark via [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) to extract image features
-- 2. Install the environment to run LXMERT model [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
-- 2. download pretrained lxmert model via
+- Install mask rcnn benchmark via [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) to extract image features
+- Install the environment to run LXMERT model via [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
+- Download pretrained lxmert model via
 ```sh
 wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P src/pretrain
 ```
@@ -64,9 +63,15 @@ python feature_extaction.py
 ```
 
 # ID and score generation
-```sh
+You can use preprocessed annotation file(trainval_with_score_quesid.json for training and test_with_score_quesid.json for testing) and ans2label.txt under input/ProcesseFile
+OR
+You can do it on your own from scrach by script
+1. Download the original annotation files and answer file from [ISVQA](https://github.com/ankanbansal/ISVQA-Dataset/tree/master/nuscenes)
+2. ```sh
 python data_preprocessing.py
 ```
+to generate new annotation file and answer file.
+
 
 # Training and Test
 ```sh
