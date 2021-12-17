@@ -1,4 +1,4 @@
-# ISVQA
+# LXMERT based ISVQA in autonomous driving dataset(Nuscenes)
 This repository is to implement lxmert model based VQA in autonomous driving dataset(Nuscenes) 
 
 # Dataset introduction
