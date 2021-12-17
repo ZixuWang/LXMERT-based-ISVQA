@@ -50,7 +50,7 @@ blabla
 
 # Preparation 
 - mask rcnn benchmark [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) 
-- LXMERT repo
+- LXMERT repository [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
 pip-requirement.yaml
 - maskrcnn_benchmark
 - mmf (orinially is ..., mmf is too large ...)
@@ -60,8 +60,13 @@ pip-requirement.yaml
 pip install yaml
 
 # Feature extraction
+run 
+```sh
+python feature_extaction.py
+```
 
 # ID and score generation
+
 
 # Training
 ```sh
