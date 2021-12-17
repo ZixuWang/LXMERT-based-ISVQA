@@ -1,9 +1,8 @@
 # ISVQA
+This repository is to implement lxmert model based VQA in autonomous driving dataset(Nuscenes) 
 
-introduction....
+# Dataset introduction
 
-# Dataset intro
-blabla
 ```sh
 |-- extracted_features
 |   |-- train
@@ -48,7 +47,7 @@ blabla
 ```
 
 
-# Preparation 
+# Preparation
 - Install mask rcnn benchmark via [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) to extract image features
 - Install the environment to run LXMERT model via [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
 - Download pretrained lxmert model via
@@ -71,8 +70,6 @@ You can do it on your own from scrach by script
 ```sh
 python data_preprocessing.py
 ```
-
-
 
 # Training and Test
 ```sh
