@@ -34,8 +34,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
 
     # Data Splits
-    parser.add_argument("--train", default= '/root/Documents/ISVQA/trainval_score_quesid.json')
-    parser.add_argument("--valid", default= '/root/Documents/ISVQA/test_score_quesid.json')
+    parser.add_argument("--train", default= 'input/ProcessedFile/trainval_with_score_quesid.json')
+    parser.add_argument("--valid", default= 'input/ProcessedFile/test_with_score_quesid.json')
     parser.add_argument("--test", default= None)
 
     # Training Hyper-parameters

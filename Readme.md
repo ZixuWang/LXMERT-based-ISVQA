@@ -51,7 +51,11 @@ blabla
 # Preparation 
 - mask rcnn benchmark [instruction](https://mmf.sh/docs/tutorials/image_feature_extraction/) 
 - LXMERT repository [instruction](https://github.com/airsplay/lxmert/blob/master/requirements.txt) 
-pip-requirement.yaml
+- download pretrained lxmert model via
+```sh
+wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P snap/pretrained
+```
+
 - maskrcnn_benchmark
 - mmf (orinially is ..., mmf is too large ...)
 - cv
