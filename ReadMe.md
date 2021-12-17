@@ -67,10 +67,11 @@ You can use preprocessed annotation file(trainval_with_score_quesid.json for tra
 OR
 You can do it on your own from scrach by script
 1. Download the original annotation files and answer file from [ISVQA](https://github.com/ankanbansal/ISVQA-Dataset/tree/master/nuscenes)
-2. ```sh
+2. Generate new annotation file and answer file.
+```sh
 python data_preprocessing.py
 ```
-to generate new annotation file and answer file.
+
 
 
 # Training and Test
