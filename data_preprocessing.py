@@ -4,8 +4,8 @@ import json
 import numpy as np
 from collections import Counter
 
-train_orinigal_path = './imdb_nuscenes_trainval.json'  # change it to your path
-train_new_path = 'trainval_with_score_quesid.json'
+train_orinigal_path = './input/ISVQA/imdb_nuscenes_trainval.json'  # change it to your path
+train_new_path = './input/ProcessedFile/trainval_with_score_quesid.json'
 
 # modify trainingset annotation file
 train_data = json.load(open(train_orinigal_path))['data']
@@ -21,8 +21,8 @@ with open(train_new_path, 'w') as f:
     json.dump(train_data, f)
 
 # modify testset annotation file
-test_original_path = './imdb_nuscenes_test.json'  # change it to your path
-test_new_path = 'test_with_score_quesid.json'
+test_original_path = './input/ISVQA/imdb_nuscenes_test.json'  # change it to your path
+test_new_path = './input/ProcessedFile/test_with_score_quesid.json'
 
 test_data = json.load(open(test_original_path))['data']
 for i, datum in enumerate(test_data):

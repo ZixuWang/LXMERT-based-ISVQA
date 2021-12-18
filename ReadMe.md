@@ -62,13 +62,16 @@ python feature_extraction.py
 
 # Question ID and score generation
 For original question id is not unique for each question, we need to generate new question id to identify each question.
+Besides, we also need to generate answer score for each answer.
 
 You can either directly use preprocessed annotation file(*trainval_with_score_quesid.json* for training and *test_with_score_quesid.json* for testing) and *ans2label.txt* under *input/ProcesseFile* or do it on your own following below steps.
 1. Download the original annotation files and answer file from [ISVQA](https://github.com/ankanbansal/ISVQA-Dataset/tree/master/nuscenes)
 2. Generate new annotation file and answer file via *data_preprocessing.py*. Before running *data_preprocessing.py*, don't forget to change file path to yours.
+3. Run *AddLabel.py* to generate new *ans2label.txt* 
+
 
 # Training and Test
-When features and new .json file and .txt file are ready, you can run *ISVQA_main.py* to train and test the whole model.
+When features, new .json file and .txt file are ready, run *ISVQA_main.py* to train and test the whole model.
 ```sh
 python ISVQA_main.py
 ```
