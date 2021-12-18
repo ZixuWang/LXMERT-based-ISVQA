@@ -37,10 +37,12 @@ This repository is to implement lxmert model based VQA in autonomous driving dat
 -- output
 -- others(temporary)
 -- src
+|   -- DataPreproScript
 |   -- lxrt
-|   -- maskrcnn benchmark
+|   -- pretrain
+|   -- param.py
 |   -- vqa_data.py
-|   -- utils
+|   -- vqa_model.py
 -- AddLabel.py
 -- ReadMe.md
 -- feature_extaction.py
@@ -80,7 +82,10 @@ python ISVQA_main.py
 
 # Result
 After 100 Epochs, we have the accuracy on training set as xxx and on test set as xxx.
+
 *figure1*
+
 *figure2*
+
 *figure3*
 
