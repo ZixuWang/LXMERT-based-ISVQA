@@ -31,8 +31,9 @@ This repository is to implement lxmert model based VQA in autonomous driving dat
   -- ISVQA
     -- NuScenes
       -- extracted_features
+    -- jsons
   # -- pretrain-weights
-  -- json
+  -- ProcessedFile
 -- output
 -- others(temporary)
 -- src
@@ -40,6 +41,7 @@ This repository is to implement lxmert model based VQA in autonomous driving dat
 |   -- maskrcnn benchmark
 |   -- vqa_data.py
 |   -- utils
+-- AddLabel.py
 -- ReadMe.md
 -- feature_extaction.py
 -- data_preprocessing.py
