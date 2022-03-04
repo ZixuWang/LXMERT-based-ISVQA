@@ -29,11 +29,18 @@ from param import args
 
 
 # IMGFEAT_ROOT = '/root/dataset/NuScenes/feature_output_train_test/'
+# print(os.path.exists('input/ProcessedFile/test_with_score_quesid.json'))
+
+# SPLIT2NAME ={
+# processed annotation file for training: path of extracted feature for training,
+# processed annotation file for testing: path of extracted feature for testing,
+# }
 
 SPLIT2NAME = {
     'input/ProcessedFile/trainval_with_score_quesid.json': 'input/ISVQA/NuScenes/extracted_features/train/',
     'input/ProcessedFile/test_with_score_quesid.json': 'input/ISVQA/NuScenes/extracted_features/test/',
 }  # TODO
+
 
 class VQADataset:
 
@@ -61,7 +68,7 @@ class VQADataset:
                 self.ans2label[line] = idx
                 self.label2ans.append(line)
 
-    @property  # 直接通过方法名来访问方法
+    @property  
     def num_answers(self):
         return len(self.ans2label)
 
@@ -96,7 +103,10 @@ class VQATorchDataset(Dataset):
         # feat_info_paths = []
         # paths of feature
         for feat_filename in feat_filenames:
+            # print(feat_filename)
             for npy_name in feat_filename:
+                # print(npy_name)
+                # print((SPLIT2NAME[dataset.splits]))
                 # print(('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1]))
                 if os.path.exists('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1]):
                     feat_paths.append('%s' % (SPLIT2NAME[dataset.splits]) + npy_name.split("/", 1)[1])  #203838
@@ -126,7 +136,7 @@ class VQATorchDataset(Dataset):
         
         for feat_path in feat_path_new:
             self.img_data.append(np.load(feat_path, allow_pickle=True).item())
-            if len(self.img_data) == 30:
+            if len(self.img_data) == 300:
                 print('loading %s feature finished' %len(self.img_data))
                 break
 

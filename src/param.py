@@ -34,7 +34,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
 
     # Data Splits
-    parser.add_argument("--train", default= 'input/ProcessedFile/trainval_with_score_quesid.json')  #TODO
+    parser.add_argument("--train", default= 'input/ProcessedFile/trainval_with_score_quesid.json')
     parser.add_argument("--valid", default= 'input/ProcessedFile/test_with_score_quesid.json')
     parser.add_argument("--test", default= None)
 
@@ -57,7 +57,7 @@ def parse_args():
                         help='Load the model (usually the fine-tuned model).')
     parser.add_argument('--loadLXMERT', dest='load_lxmert', type=str, default=None,
                         help='Load the pre-trained LXMERT model.')
-    parser.add_argument('--loadLXMERTQA', dest='load_lxmert_qa', type=str, default= './src/pretrain/model',
+    parser.add_argument('--loadLXMERTQA', dest='load_lxmert_qa', type=str, default= 'src/pretrain/',  #TODO
                         help='Load the pre-trained LXMERT model with QA answer head.')
     parser.add_argument("--fromScratch", dest='from_scratch', action='store_const', default=False, const=True,
                         help='If none of the --load, --loadLXMERT, --loadLXMERTQA is set, '

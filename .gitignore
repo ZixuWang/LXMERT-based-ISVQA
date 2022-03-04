@@ -1,3 +1,6 @@
+detectron_model_x152.pth
+detectron_model_x152.yaml
+*.pth
 # input/
 output/
 

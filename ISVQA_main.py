@@ -2,7 +2,7 @@
 # Copyleft 2019 project LXRT.
 
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = "2,3" #TODO
+os.environ['CUDA_VISIBLE_DEVICES'] = "2,3" # Modify it as the number of your available CUDA
 import sys
 import collections
 

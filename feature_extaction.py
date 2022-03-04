@@ -33,6 +33,7 @@ class FeatureExtractor:
         "X-152": "https://dl.fbaipublicfiles.com/pythia/"
                  + "detectron_model/detectron_model_x152.pth",
     }
+    
     CONFIG_URL = {
         "X-101": "https://dl.fbaipublicfiles.com/pythia/"
                  + "detectron_model/detectron_model.yaml",
@@ -47,6 +48,7 @@ class FeatureExtractor:
         self.args = self.get_parser().parse_args()
 
         self.data = json.load(open(self.args.annotations_file))
+        self.data = self.data['data']
         parts = os.listdir(self.args.image_dir)
         # parts = ['part01', 'part02', 'part03', 'part04', 'part05']
         self.image_dir = [self.args.image_dir + '/' + p + '/samples' for p in parts if p[:4] == "part"]
@@ -66,9 +68,10 @@ class FeatureExtractor:
             ):
                 print(f"model and config file exists in directory: {os.getcwd()}")
                 return
+
             print("Downloading model and configuration")
-            download(model_url, "src", self.args.model_file)
-            download(config_url, "src", self.args.config_file)
+            download(model_url, ".", self.args.model_file)
+            download(config_url, ".",self.args.config_file)
 
     def get_parser(self):
         parser = argparse.ArgumentParser()
@@ -96,8 +99,8 @@ class FeatureExtractor:
             help="Number of features to extract.",
         )
         parser.add_argument(
-            "--output_folder", type=str, default="./input/ISVQA/NuScenes/extracted_features", help="Output folder"
-        )
+            "--output_folder", type=str, default="./input/ISVQA/NuScenes/feature_output_2022", help="Output folder"
+        )    #You can modify the output folder
         parser.add_argument("--image_dir", type=str, default="./input/ISVQA/NuScenes", help="Image directory or file")
         parser.add_argument("--annotations_file", default="./input/ProcessedFile/imdb_nuscenes_trainval_score.json", type=str)
         parser.add_argument(
@@ -127,6 +130,7 @@ class FeatureExtractor:
         return parser
 
     def _build_detection_model(self):
+        print(self.args.config_file)
         cfg.merge_from_file(self.args.config_file)
         cfg.freeze()
 
@@ -300,7 +304,7 @@ class FeatureExtractor:
                         features_list.append(features_new)
                     # print(features_list)
 
-                    print('extract')
+                    # print('extract')
                     for i in range(len(image_paths)):
                         self._save_feature(image_paths[i][:-3] + 'npy', features_list[i], infos[i])
 
