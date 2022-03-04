@@ -27,7 +27,7 @@ test_new_path = './input/ProcessedFile/test_with_score_quesid.json'
 
 test_data = json.load(open(test_original_path))['data']
 for i, datum in enumerate(test_data):
-    datum['quesid']=i
+    datum['quesid']=i+50000
     answers = datum['answers']
     label = dict(Counter(answers))
     for answer in label.keys():
