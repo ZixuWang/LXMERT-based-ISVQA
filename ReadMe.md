@@ -82,7 +82,7 @@ AttributeError: module 'torch._six' has no attribute 'PY3'
 ```sh
 wget https://nlp.cs.unc.edu/data/model_LXRT.pth -P snap/pretrained
 ```
-
+- Download all_ans.json from https://github.com/airsplay/lxmert/blob/master/data/lxmert/all_ans.json for pretrained model and save it under input/ProcessedFile
 - maskrcnn_benchmark
 - mmf (orinially is ..., mmf is too large ...)
 - cv
